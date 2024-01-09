@@ -17,7 +17,28 @@ builder.Services.AddSwaggerGen(c =>
     // Set the path of the XML documentation file
     var xmlPath = Path.Combine(Directory.GetCurrentDirectory(), "ApiDoc.xml");
     c.IncludeXmlComments(xmlPath);
-}); ;
+    c.UseAllOfToExtendReferenceSchemas();
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Standard authorization header using the bearer scheme(\"Bearer {token}\")",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+       {
+           new OpenApiSecurityScheme
+           {
+              Reference = new OpenApiReference
+              {
+                  Type = ReferenceType.SecurityScheme,
+                  Id = "Bearer"
+              }
+           },
+           new string[] { }
+       }
+     });
+});
 
 var app = builder.Build();
 
@@ -31,7 +52,7 @@ app.UseReDoc(c =>
 {
     c.SpecUrl = "/swagger/v1/swagger.json";
     c.DocumentTitle = "Ecommerce API Documentation";
-   
+
 });
 app.UseHttpsRedirection();
 
