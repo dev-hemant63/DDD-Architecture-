@@ -1,4 +1,6 @@
+using Infrastructure.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace WEBAPI.Controllers
 {
@@ -17,8 +19,14 @@ namespace WEBAPI.Controllers
         {
             _logger = logger;
         }
-
+        /// <summary>
+        /// This is a summary for your method.
+        /// </summary>
+        /// <param name="parameter">Description of the parameter.</param>
+        /// <returns>What the method returns.</returns>
         [HttpGet(Name = "GetWeatherForecast")]
+        [ProducesResponseType(typeof(Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Response), (int)HttpStatusCode.BadRequest)]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
