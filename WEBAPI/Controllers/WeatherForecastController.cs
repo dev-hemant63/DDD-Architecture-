@@ -19,14 +19,8 @@ namespace WEBAPI.Controllers
         {
             _logger = logger;
         }
-        /// <summary>
-        /// This is a summary for your method.
-        /// </summary>
-        /// <param name="parameter">Description of the parameter.</param>
-        /// <returns>What the method returns.</returns>
         [HttpGet(Name = "GetWeatherForecast")]
-        [ProducesResponseType(typeof(Response), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(Response), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(200, Type = typeof(WeatherForecast))]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
