@@ -55,9 +55,14 @@ app.UseReDoc(c =>
 
 });
 app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoint =>
+{
+    endpoint.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.Run();
