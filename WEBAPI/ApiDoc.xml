@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UPIGateway</name>
+    </assembly>
+    <members>
+        <member name="M:UPIGateway.AppCode.Extensions.HttpRequestExtensions.GetRawBodyStringAsync(Microsoft.AspNetCore.Http.HttpRequest,System.Text.Encoding)">
+            <summary>
+            Retrieve the raw body as a string from the Request.Body stream
+            </summary>
+            <param name="request">Request instance to apply to</param>
+            <param name="encoding">Optional - Encoding, defaults to UTF8</param>
+            <returns></returns>
+        </member>
+        <member name="M:UPIGateway.AppCode.Extensions.HttpRequestExtensions.GetRawBodyBytesAsync(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Retrieves the raw body as a byte array from the Request.Body stream
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UPIGateway.AppCode.PhonePay.PhonePayService.TxnData(UPIGateway.AppCode.PhonePay.WebScrapModel.TxnDataRequest,System.Int32,System.String)">
+            <summary>
+            Must Store TID in Log
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UPIGateway.AppCode.PhonePay.PhonePayService.GenrateAmountWiseQR(UPIGateway.AppCode.PhonePay.WebScrapModel.GenrateAmountWiseQRRequest)">
+            <summary>
+            Must Store TID in Log
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UPIGateway.Controllers.API.StaggingController.InitiateTransactionStaggingAsync(UPIGateway.Models.InitiateTransactionRequest)">
+             <response code="200">
+             Sample Success response:
+             
+                 {
+                     "statusCode": 1,
+                     "responseText": "Transaction initiated successfull",
+                     "msg": "string",
+                     "transactionId": 942479,
+                     "url": "http://localhost:53105/order/stage/942479/a3131a90737b311f8cb567e8a91aXXXX",
+                     "intentString": "upi://pay?pa=Q91378XXXX@yblXXXXXXXXXX",
+                     "displayName": "Roundpay Techno Media Pvt ltd",
+                     "upiSettingId": 1,
+                     "appid": 1,
+                     "msg": null
+                 }
+                 
+             Sample Fail response:
+             
+                 {
+                     "transactionId": 0,
+                     "url": null,
+                     "intentString": null,
+                     "displayName": null,
+                     "upiSettingId": 0,
+                     "appid": 0,
+                     "statusCode": -1,
+                     "responseText": "Amount must be greater than 0",
+                     "msg": null
+                 }
+            
+             Sample webhook response:
+             
+                <code>
+                 {webhookURL}?tr=f1facaee57da2393ee65f5c43fe73462%tid=941937%amount=700.00%requestedId=335352%status=pending
+                </code>
+                 
+             Sample serverhook response:
+             
+                <code>
+                 {serverHookURL}?tr%3dRTID942006O%26tid%3d942006%26transactionId%3d942006%26amount%3d600.00%26requestedId%3d1343733%26status%3dS%26payerVPA%3d%26payerName%3draju+sharma%26payerPhone%3d%2bxx+70xxxxxx%26paymentApp%3dPhonePe%26utr%3d367806522024%26globalPaymentId%3dT2311081157560682442469%26time%3d08+Nov+2023+11%3a57%3a47%3a020%26merchantName%3dGaurav+Recharge
+                 </code>
+             </response>
+        </member>
+        <member name="M:UPIGateway.Controllers.API.TransactionV2Controller.InitiateTransactionAsync(UPIGateway.Models.InitiateTransactionRequest)">
+             <response code="200">
+             Sample Success response:
+             
+                 {
+                     "statusCode": 1,
+                     "responseText": "Transaction initiated successfull",
+                     "msg": "string",
+                     "transactionId": 942479,
+                     "url": "http://localhost:53105/order/stage/942479/a3131a90737b311f8cb567e8a91aXXXX",
+                     "intentString": "upi://pay?pa=Q91378XXXX@yblXXXXXXXXXX",
+                     "displayName": "Roundpay Techno Media Pvt ltd",
+                     "upiSettingId": 1,
+                     "appid": 1,
+                     "msg": null
+                 }
+                 
+             Sample Fail response:
+             
+                 {
+                     "transactionId": 0,
+                     "url": null,
+                     "intentString": null,
+                     "displayName": null,
+                     "upiSettingId": 0,
+                     "appid": 0,
+                     "statusCode": -1,
+                     "responseText": "Amount must be greater than 0",
+                     "msg": null
+                 }
+            
+             Sample webhook response:
+             
+                <code>
+                 {webhookURL}?tr=f1facaee57da2393ee65f5c43fe73462%tid=941937%amount=700.00%requestedId=335352%status=pending
+                </code>
+                 
+             Sample serverhook response:
+             
+                <code>
+                 {serverHookURL}?tr%3dRTID942006O%26tid%3d942006%26transactionId%3d942006%26amount%3d600.00%26requestedId%3d1343733%26status%3dS%26payerVPA%3d%26payerName%3draju+sharma%26payerPhone%3d%2bxx+70xxxxxx%26paymentApp%3dPhonePe%26utr%3d367806522024%26globalPaymentId%3dT2311081157560682442469%26time%3d08+Nov+2023+11%3a57%3a47%3a020%26merchantName%3dGaurav+Recharge
+                 </code>
+             </response>
+        </member>
+        <member name="M:UPIGateway.Controllers.API.TransactionV2Controller.StatusAsync(System.String)">
+             <response code="200">
+             Sample Success response:
+             
+                 {
+                          "statusCode": 1,
+                          "responseText": "SUCCESS",
+                          "result": {
+                            "status": "PENDING",
+                            "requestedId": "TID81123045124",
+                            "amount": 1,
+                            "utr": "",
+                            "payerVPA": null,
+                            "payerName": null,
+                            "payerPhone": null,
+                            "paymentApp": null,
+                            "merchantName": "Roundpay Techno Media Pvt ltd",
+                            "globalPaymentId": null,
+                            "paymentInitiatedOn": "08 Nov 2023 16:24:51:597"
+                          }
+                       }
+                 
+             Sample Fail response:
+             
+                 {
+                         "statusCode": 2,
+                         "responseText": "No record found",
+                         "result": {
+                             "status": null,
+                             "requestedId": "TEST9090",
+                             "amount": 0,
+                             "utr": "",
+                             "payerVPA": null,
+                             "payerName": null,
+                             "payerPhone": null,
+                             "paymentApp": null,
+                             "merchantName": null,
+                             "globalPaymentId": null,
+                             "paymentInitiatedOn": null
+                         }
+                }
+            
+             
+             </response>
+        </member>
+    </members>
+</doc>
