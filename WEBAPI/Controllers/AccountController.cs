@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Domain.Entities;
+using Domain.Interface;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -14,9 +16,29 @@ namespace WEBAPI.Controllers
     public class AccountController : ControllerBase
     {
         private readonly JWT _jWT;
-        public AccountController(AppSettings appSettings)
+        private readonly IUserService _userService;
+        public AccountController(AppSettings appSettings, IUserService userService)
         {
             _jWT = appSettings.JWT;
+            _userService = userService;
+        }
+
+        [HttpPost(nameof(SignUp))]
+        public async Task<IActionResult> SignUp(SignUpReq signUpReq)
+        {
+            var res = await _userService.Create(new ApplicationUsers
+            {
+                FirstName = signUpReq.Name,
+                MobileNo = signUpReq.MobileNo,
+                Address = string.Empty,
+                PostalCode = 0,
+                AlternateNumber = signUpReq.MobileNo,
+                WhatsAppNumber = signUpReq.MobileNo,
+                MeddleName = string.Empty,
+                LastName = string.Empty,
+                RoleId = ApplicationRoles.User
+            });
+            return Ok(res);
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginReq loginReq)
