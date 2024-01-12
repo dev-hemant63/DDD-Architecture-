@@ -1,20 +1,21 @@
 using Infrastructure;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
+using WEBAPI.Extension;
+using WEBAPI.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 ConnectionHelper ch = new ConnectionProvidor { connectionString = builder.Configuration.GetConnectionString("SqlConnection") };
 builder.Services.AddSingleton<ConnectionHelper>(ch);
+ServiceCollectionExtension.RegisterService(builder.Services, builder.Configuration);
+AppSettings appSettings = new AppSettings();
+builder.Configuration.Bind(appSettings);
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddSingleton<AppSettings>(appSettings);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
-
-    // Set the path of the XML documentation file
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ecommerce API", Version = "v1" });
     var xmlPath = Path.Combine(Directory.GetCurrentDirectory(), "ApiDoc.xml");
     c.IncludeXmlComments(xmlPath);
     c.UseAllOfToExtendReferenceSchemas();
@@ -56,6 +57,7 @@ app.UseReDoc(c =>
 });
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoint =>
